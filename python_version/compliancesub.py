@@ -3,10 +3,24 @@ import uvicorn
 import os
 import signal
 import sys
-from fastapi import FastAPI, File, UploadFile, Request
+import json
+from fastapi import FastAPI, File, UploadFile, Request, Form
+from pydantic import BaseModel
 from multiprocessing import Process
 from fastapi.responses import HTMLResponse, JSONResponse
 
+
+class Model(BaseModel):
+    cpee: str
+    instance_url: str
+    instance: int
+    topic: str
+    type: str
+    name: str
+    timestamp: str
+    content: dict
+    instance_uuid: str
+    instance_name: str
 
 app = FastAPI()
 
@@ -21,10 +35,17 @@ async def main():
     return HTMLResponse(content=content)
 
 @app.post("/Subscriber")
-async def Subscriber(data: Request):
-    json = await data.body()
-    print(json)
-    return 
+async def Subscriber(request: Request):
+    async with request.form() as form:
+        typ3 = form["type"]
+        topic = form["topic"]
+        event = form["event"]
+        notification = json.loads(form["notification"])
+        print(notification)
+    return
+
+
+
 
 def run_server():
     pid = os.fork()
