@@ -4,11 +4,16 @@ import os
 import signal
 import sys
 import json
+import re
 from fastapi import FastAPI, File, UploadFile, Request, Form
 from pydantic import BaseModel
 from multiprocessing import Process
 from fastapi.responses import HTMLResponse, JSONResponse
+from hashmap import HashTable
+from util import to_tree
 
+hash_t = HashTable(20)
+hash_t.load_disk("TrackedUIDsHashmap.json")
 
 class Model(BaseModel):
     cpee: str
@@ -37,15 +42,30 @@ async def main():
 @app.post("/Subscriber")
 async def Subscriber(request: Request):
     async with request.form() as form:
+        notification = json.loads(form["notification"])
+        hash_t.insert(notification["instance-uuid"], notification)
+        try:
+            requirements = notification["content"]["attributes"]["requirements"]
+            print("reached")
+        except:
+            print("No requirements attribute was passed, nothing to check")
+            return
+        try:
+            save = notification["content"]["attributes"]["save"]
+            if save:
+                hash_t.save_disk("TrackedUIDsHashmap.json")
+        except:
+            print("No save attribute was passed, previous version will only be stored in memory and not written to disk")
+            print("If a save attribute was passed, and this message still shows, there is a internal server error")
         typ3 = form["type"]
         topic = form["topic"]
         event = form["event"]
-        notification = json.loads(form["notification"])
-        print(notification)
+        print(notification["content"]["dsl"])
+        tree = to_tree(notification["content"]["dsl"])
+        print(tree)
+        tree.show( attr_list=["typ"])
+
     return
-
-
-
 
 def run_server():
     pid = os.fork()

@@ -37,8 +37,14 @@ class HashTable:
     # Insert values into hash map
     def insert(self, key, val):
         hashed_key = hash(key) % self.size
-        bucket = self.hash_table[hashed_key]
-        if self.exists(key):
+        bucket = self.hash_table[hashed_key]#
+        found = False
+        for index, record in enumerate(bucket):
+            record_key, record_val = record
+            if record_key == key:
+                found = True
+                break
+        if found:
             bucket[index] = (key, val)
         else:
             bucket.append((key, val))
