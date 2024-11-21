@@ -48,7 +48,6 @@ async def Subscriber(request: Request):
         hash_t.insert(notification["instance-uuid"], notification)
         try:
             requirements = notification["content"]["attributes"]["requirements"]
-            print("reached")
         except:
             print("No requirements attribute was passed, nothing to check")
             return
@@ -56,10 +55,10 @@ async def Subscriber(request: Request):
             save = notification["content"]["attributes"]["save"]
             if save:
                 hash_t.save_disk("TrackedUIDsHashmap.json")
+                print("reached")
         except:
             print("No save attribute was passed, previous version will only be stored in memory and not written to disk")
             print("If a save attribute was passed, and this message still shows, there is a internal server error")
-        print(ET.tostring(ET.fromstring(notification["content"]["description"]), encoding='utf8').decode('utf8'))
         xml = ET.fromstring(notification["content"]["description"])
         typ3 = form["type"]
         topic = form["topic"]

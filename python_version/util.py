@@ -1,31 +1,6 @@
 import xml.etree.ElementTree as ET
 from hashmap import HashTable
 
-hash_t = HashTable(20)
-hash_t.load_disk("TrackedUIDsHashmap.json")
-notification = hash_t.get("8ff5ea21-3ee8-4f34-a0ca-36b6097d95c7")
-
-
-namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
-
-tree = ET.fromstring(notification["content"]["description"])
-print(ET.tostring(tree, encoding='utf8').decode('utf8'))
-
-#root = tree.getroot()
-
-print(tree.tag)
-print(tree.attrib)
-
-for child in tree:
-    print(child.tag, child.attrib)
-    for children in child:
-        print(children.tag, children.attrib)
-        
-
-print("test")
-print(tree.findall(".", namespace))
-print(tree.findall("ns0:call", namespace))
-
 
 ## find xpath by label
 def exists_by_label(root, namespace, mlabel):
@@ -36,16 +11,7 @@ def exists_by_label(root, namespace, mlabel):
             return f".//ns0:call[@id='{call_id}']" if call_id else None
     return None
 
-a = exists_by_label(tree, namespace, "A")
-print("A: " + a)
-b = exists_by_label(tree, namespace, "B")
-print("B: " + b)
-f = exists_by_label(tree, namespace, "F")
-print("F: " + f)
-e = exists_by_label(tree, namespace, "E")
-print("E: " + e)
-d = exists_by_label(tree, namespace, "D")
-
+## Returns the ancestors of two xpaths, currently only used to enable the compare_xpaths method
 def get_ancestors(root, xpath, namespace):
     target = root.find(xpath,namespace)
     ancestors = []
@@ -84,27 +50,3 @@ def compare_xpaths(root, xpath1, xpath2, namespace):
         elif element == root.find(xpath2, namespace):
             return 2 
 
-print("compare a, e")
-print(compare_xpaths(tree, a, e, namespace))
-print("compare f, e")
-print(compare_xpaths(tree, f, e, namespace))
-print("compare a, f")
-print(compare_xpaths(tree, a, f, namespace))
-print("compare e, d")
-print(compare_xpaths(tree, e, d, namespace))
-
-def get_ancestors(root, xpath, namespace):
-    target = root.find(xpath,namespace)
-    ancestors = []
-    current = target
-    while current is not None:
-        for parent in root.iter():
-            if current in parent:
-                ancestors.append(parent)
-                current = parent
-                break
-        else:
-            break
-    return ancestors
-
-print(get_ancestors(tree, d, namespace))
