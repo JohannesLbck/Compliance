@@ -1,12 +1,17 @@
 import bigtree
+from util import exists_by_label, comapre_xpaths
+
 
 ## This contains the verification using explicit, annotated verification, meaning the activities are identified by labels and resources
 ## are explicity annotated
 
 # Control Flow
-## Existence: Checks if an activity a exists in a tree
-def exists(a, tree):
-    pass
+## Existence: Checks if an activity a exists in the xml tree and returns the xpath or None, this annotated version identifies by label
+def exists(a, tree):#
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
+    return exists_by_label(tree, namespace, a)
+    
+    
 
 ## Absence: opposite of exists
 def absence(a, tree):
@@ -14,9 +19,13 @@ def absence(a, tree):
 
 ## Leads To: Checks if an activity a exists and if it does if the activity it leads to exists prior
 def leads_to(a, b, tree):
-    if exists(a, tree):
-        ## check if b is after a in any branch
-        pass
+    apath = exists(a, tree)
+    bpath = exists(b, tree)
+    if apath:
+        if bpath:
+            return compare_xpaths(apath, bpath)
+        else:
+            return False 
     else:
         return True
 
