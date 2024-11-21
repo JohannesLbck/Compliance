@@ -12,6 +12,8 @@ from multiprocessing import Process
 from fastapi.responses import HTMLResponse, JSONResponse
 from hashmap import HashTable
 from tree_util import find_by_attribute
+from util import exists_by_label, get_ancestors, compare_xpaths
+from tester import run_tests
 
 hash_t = HashTable(20)
 hash_t.load_disk("TrackedUIDsHashmap.json")
@@ -63,6 +65,7 @@ async def Subscriber(request: Request):
         typ3 = form["type"]
         topic = form["topic"]
         event = form["event"]
+        run_tests(xml)
         #print(notification["content"]["dsl"])
 
     return

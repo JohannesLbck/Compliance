@@ -9,7 +9,7 @@ from util import exists_by_label, comapre_xpaths
 ## Existence: Checks if an activity a exists in the xml tree and returns the xpath or None, this annotated version identifies by label
 def exists(a, tree):#
     namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
-    return exists_by_label(tree, namespace, a)
+    return exists_by_label(tree, a)
     
     
 
@@ -17,13 +17,21 @@ def exists(a, tree):#
 def absence(a, tree):
     return not exists(a, tree)
 
-## Leads To: Checks if an activity a exists and if it does if the activity it leads to exists prior
+## Leads To: Checks if an activity a exists and if it does if the activity it leads to exists after
 def leads_to(a, b, tree):
     apath = exists(a, tree)
     bpath = exists(b, tree)
     if apath:
         if bpath:
-            return compare_xpaths(apath, bpath)
+            compare = compare_xpaths(tree, apath, bpath)
+            if compare == 0:
+                return False
+            elif compare == -1:
+                return False
+            elif compare == 1:
+                return True
+            elif compare == 2:
+                return False
         else:
             return False 
     else:
@@ -31,26 +39,63 @@ def leads_to(a, b, tree):
 
 ## Precedence: Checks if an activity a exists, and if it does if the activity it requires as a precedence exists prior
 def precedence(a, b, tree):
-    if exists(a, tree):
-        ## check if b is before a in any branch or in a parrallel branch with a
-        pass
+    apath = exists(a, tree)
+    bpath = exists(b, tree)
+    if apath:
+        if bpath:
+            compare = compare_xpaths(tree, apath, bpath)
+            if compare == 0:
+                return False
+            elif compare == -1:
+                return False
+            elif compare == 1:
+                return False 
+            elif compare == 2:
+                return True
+        else:
+            return False
     else:
         return True
-    pass
+
 
 ## Leads To Absence: if activity a exists, activity b does not exist after:
-def leads_to_absence(a, b, tree):    
-    if exists(a, tree):
-        return absence(b, tree)
+def leads_to_absence(a, b, tree):
+    apath = exists(a, tree)
+    bpath = exists(b, tree)
+    if apath:
+        if not bpath:
+            return True
+        else:
+            compare = compare_xpaths(tree, apath, bpath)
+            if compare == 0:
+                return True
+            elif compare == -1:
+                return False
+            elif compare == 1:
+                return False
+            elif comapre == 2:
+                return True
     else:
         return True
 ## Precdence Absence: if activity a exists, then activity b does not exist before
 def precedence_absence(a, b, tree):
-    if exists(b, tree):
-        return not leads_to(a, b, tree)
+    apath = exists(a, tree)
+    bpath = exists(b, tree)
+    if apath:
+        if not bpath:
+            return True
+        else:
+            compare = compare_xpaths(tree, apath, bpath)
+            if compare == 0:
+                return True
+            elif compare == -1:
+                return False
+            elif compare == 1:
+                return True
+            elif comapre == 2:
+                return False 
     else:
         return True
-
 
 # Resource
 ## Executed By: checks if an activity a exists, and if it does if it is executed by resource
@@ -58,10 +103,10 @@ def executed_by(a, resource):
     pass
 
 # Data (which are also implicit resource)
-## Send Exist: Checks if any activity in tree sends data data, returns boolean and said activity
+## Send Exist: Checks if any activity in tree sends data data, returns said activity or None
 def send_exist(data, tree):
     pass
-## Receive Exist: Checks if any activity in tree receives data data, returns boolean and said activity
+## Receive Exist: Checks if any activity in tree receives data data, returns said activity or None
 def receive_exist(data, tree):
     pass
 ## Activity sends: Checks if activity a sends data data
@@ -82,17 +127,24 @@ def activitiy_receives(a, data):
 
 
 # Time (directly implementable without reliance on sync activities)
-## Min Time between: checks if activities a and b have a minimal time between them
-def min_time_between(a, b, time):
-    pass
-
+## Min Time between: checks if activities a and b have a minimal time between them, very likely this is a bugged and maybe even a bit useless
+def min_time_between(tree, a, b, time):
+    if leads_to(a, b, tree):
+        timeouts = timeouts_exists(tree)
+        for path, t in timeouts:
+            if leads_to(a, path, tree) and leads_to(path, b, tree):
+                return t <= time
+        return False
+    else:
+        return True
 # Time (that require sync activities)
 ## By Due Date: checks if an activity a has a sync activity with a value of timestamp time
 ## and a decision that reads the answer of sync after its execution
 def by_due_date(a, time):
     pass
 
-
+def max_time_between(a, b, time):
+    pass
 
 ## Obligations vs Permissions: These can be modeled on the requirements side, using ands, ors and by just included the rule or not
 ## Complex resource requirements: These can also be modeled on the requirements side usind ands, ors and by just including rule or not

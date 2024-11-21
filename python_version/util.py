@@ -3,7 +3,8 @@ from hashmap import HashTable
 
 
 ## find xpath by label
-def exists_by_label(root, namespace, mlabel):
+def exists_by_label(root, mlabel):
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
     for call in root.findall(".//ns0:call", namespace):
         label = call.find("ns0:parameters/ns0:label", namespace)
         if label is not None and label.text == mlabel:
@@ -12,7 +13,8 @@ def exists_by_label(root, namespace, mlabel):
     return None
 
 ## Returns the ancestors of two xpaths, currently only used to enable the compare_xpaths method
-def get_ancestors(root, xpath, namespace):
+def get_ancestors(root, xpath):
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
     target = root.find(xpath,namespace)
     ancestors = []
     current = target
@@ -29,10 +31,11 @@ def get_ancestors(root, xpath, namespace):
 ## This method is idenpendent of the annotation style, this code is absolutly disgusting, I search through the entire tree
 ## 3 times which should really only take one search, but whatever, I dont like xpath, this method assumes that the xpath
 ## exists in the tree
-def compare_xpaths(root, xpath1, xpath2, namespace):
+def compare_xpaths(root, xpath1, xpath2):
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
     typesplit = xpath1.split("[")[0]
-    ancestors1 = get_ancestors(root, xpath1, namespace)
-    ancestors2 = get_ancestors(root, xpath2, namespace)
+    ancestors1 = get_ancestors(root, xpath1 )
+    ancestors2 = get_ancestors(root, xpath2 )
     ## if they share a choose or a parrallel node, adress the special case, otherwise break out and do the normal comparison
     shared_ancestors = set(ancestors1) & set(ancestors2)
     shared_branch = False
@@ -49,4 +52,25 @@ def compare_xpaths(root, xpath1, xpath2, namespace):
             return 1 
         elif element == root.find(xpath2, namespace):
             return 2 
+
+## directly follows
+def directly_follows(root, xpath1, xpath2):
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
+
+## time exists returns a list of all timeouts with their timeout values
+def timeouts_exists(root):
+    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
+    results = []
+    # Iterate through all <call> elements
+    for call in root.findall(".//ns0:call[@endpoint='timeout']", namespace):
+        call_id = call.attrib.get('id', 'unknown') 
+        xpath = f".//ns0:call[@id='{call_id}']"
+        timeout_element = call.find(".//ns0:arguments/ns0:timeout", namespace)
+
+        if timeout_element is not None and timeout_element.text is not None:
+            timeout_value = timeout_element.text.strip()
+            results.append((xpath, timeout_value))
+    return results
+ 
+## Data 
 
