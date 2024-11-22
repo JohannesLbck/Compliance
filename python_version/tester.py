@@ -14,8 +14,8 @@ def run_tests(tree):
 
     for child in tree:
         print(child.tag, child.attrib)
-        for children in child:
-            print(children.tag, children.attrib)
+        #for children in child:
+        #    print(children.tag, children.attrib)
 
 
     print(tree.findall(".", namespace))
