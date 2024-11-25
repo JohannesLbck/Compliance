@@ -1,5 +1,5 @@
 import bigtree
-from util import exists_by_label, comapre_xpaths
+from util import exists_by_label, comapre_xpaths, executed_by_annotated
 
 
 ## This contains the verification using explicit, annotated verification, meaning the activities are identified by labels and resources
@@ -8,7 +8,6 @@ from util import exists_by_label, comapre_xpaths
 # Control Flow
 ## Existence: Checks if an activity a exists in the xml tree and returns the xpath or None, this annotated version identifies by label
 def exists(a, tree):#
-    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
     return exists_by_label(tree, a)
     
     
@@ -98,9 +97,21 @@ def precedence_absence(a, b, tree):
         return True
 
 # Resource
-## Executed By: checks if an activity a exists, and if it does if it is executed by resource
-def executed_by(a, resource):
+## Executed By data: checks if an activity a exists, and if it does if it is executed by resource, by interpreting data
+def executed_by_data(a, resource, tree):
     pass
+
+## Executed By Annotation: checks if an activity a exists, and if it does if it is executed by resource, by checking the annotation for Input Name: Resource
+def executed_by_anno(a, resource, tree):
+    apath = exists(a, tree)
+    if apath:
+        if executed_by_annotated(apath, tree) == resource:
+            return True
+        else:
+            print(apath + " is currently not executed by " + resource)
+            return False
+    else:
+        True
 
 # Data (which are also implicit resource)
 ## Send Exist: Checks if any activity in tree sends data data, returns said activity or None

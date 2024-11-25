@@ -11,7 +11,6 @@ from pydantic import BaseModel
 from multiprocessing import Process
 from fastapi.responses import HTMLResponse, JSONResponse
 from hashmap import HashTable
-from tree_util import find_by_attribute
 from util import exists_by_label, get_ancestors, compare_xpaths
 from tester import run_tests
 
