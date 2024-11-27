@@ -149,12 +149,48 @@ def min_time_between(tree, a, b, time):
     else:
         return True
 # Time (that require sync activities)
-## By Due Date: checks if an activity a has a sync activity with a value of timestamp time
+## By Due Date: explicit, 
 ## and a decision that reads the answer of sync after its execution
-def by_due_date(a, time):
+def by_due_date_explicit(tree, a, time):
+    apath = exists(a, tree)
+    if apath:
+        for sync in sync_exists(tree):
+            if directly_follows_must(tree, apath, sync[0]) or directly_follows_must(tree, sync[0], apath):
+                if sync[1]:
+                    if isinstance(sync[1], string):
+                        print("uses a dataobject timestamp, can only be implicitly checked")
+                        return True
+                    else:
+                        return time == sync[1] ## assumes the passed time is already parsed into a time object
+                else: ## No timestamp or data object has been added to the sync yet
+                    print("No timestamp or data.object is read in the sync activiy")
+                    return False
+        print("no sync activity was found in the tree to enforce the due date requirement")
+        return False ## No matching sync object found
+    else:
+        return True
+## By Due Data: implicit
+def by_due_date_implicit(tree, a):
+    apath = exists(a, tree)
+    if apath:
+        for sync in sync_exists(tree):
+            if directly_follows_must(tree, apath, sync[0]) or directly_follows_must(tree, sync[0], apath):
+                if sync[1]:
+                    if isinstance(sync[1], string):
+                        return True
+                    else:
+                        print("timestamp was found, could be explicitly checked")
+                        return True
+                else: # No timestamp or data object has been added to the sync yet
+                    print("No timestamp or data.object is read in the sync activity")
+                    return False
+        print("no sync activity was found to enforce the due date requirement")
+        return False
+    else:
+        return True
     pass
 
-def max_time_between(a, b, time):
+def max_time_between(tree, a, b, time):
     pass
 
 ## Obligations vs Permissions: These can be modeled on the requirements side, using ands, ors and by just included the rule or not

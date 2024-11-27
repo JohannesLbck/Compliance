@@ -1,10 +1,11 @@
 import xml.etree.ElementTree as ET
 from hashmap import HashTable
-from util import directly_follows_must, directly_follows_can, timeouts_exists, exists_by_label, get_ancestors, compare_xpaths, executed_by_annotated
+from util import sync_exists, directly_follows_must, directly_follows_can, timeouts_exists, exists_by_label, get_ancestors, compare_xpaths, executed_by_annotated
 
-def run_tests(tree):
 
-    namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
+namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
+
+def generic_tests(tree):
 
     print(ET.tostring(tree, encoding='utf8').decode('utf8'))
 
@@ -21,8 +22,11 @@ def run_tests(tree):
     print(tree.findall(".", namespace))
     print(tree.findall("ns0:call", namespace))
 
+def executed_by_tests(tree):
     print(executed_by_annotated(exists_by_label(tree, "F"), tree,))
     print("f and d")
+
+def directly_follows_must_tests(tree):
     print(directly_follows_must(tree, exists_by_label(tree, "F"), exists_by_label(tree, "D")))
     print("f and g")
     print(directly_follows_must(tree, exists_by_label(tree, "F"), exists_by_label(tree, "G")))
@@ -31,6 +35,7 @@ def run_tests(tree):
     print("test and wait")
     print(directly_follows_must(tree, exists_by_label(tree, "test"), exists_by_label(tree, "wait")))
 
+def directly_follows_can_tests(tree):
     print("can tests")
     print(executed_by_annotated(exists_by_label(tree, "F"), tree,))
     print("f and d")
@@ -47,4 +52,15 @@ def run_tests(tree):
     print(directly_follows_can(tree, exists_by_label(tree, "E"), exists_by_label(tree, "wait")))
     print("D and wait")
     print(directly_follows_can(tree, exists_by_label(tree, "D"), exists_by_label(tree, "wait")))
+
+def time_tests(tree):
+    print("Timeouts:")
+    print(timeouts_exists(tree))
+    print("Syncs:")
+    print(sync_exists(tree))
+    pass
+
+def run_tests(tree):
+    generic_tests(tree)
+    time_tests(tree)
 

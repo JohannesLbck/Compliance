@@ -13,6 +13,8 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from hashmap import HashTable
 from util import exists_by_label, get_ancestors, compare_xpaths
 from tester import run_tests
+from recparser import parse_requirement
+from verifier import verify
 
 hash_t = HashTable(20)
 hash_t.load_disk("TrackedUIDsHashmap.json")
@@ -65,7 +67,16 @@ async def Subscriber(request: Request):
         topic = form["topic"]
         event = form["event"]
         run_tests(xml)
-        #print(notification["content"]["dsl"])
+        
+        ## This is how the actual requirement verification loop will look like
+        #for req in requirements:
+        #    print("Parsing Requirement: " + req)
+        #    parsed_requirement = parse_requirement(req)
+        #    if parsed_requirement:
+        #        print("Verifying Requirement: " + req)
+        #        print("Requirement " + req + " is " + verify(parsed_requirement))
+        #    else:
+        #        print("Requirement: " + req + " could not be parsed")
 
     return
 
