@@ -67,14 +67,19 @@ async def Subscriber(request: Request):
         topic = form["topic"]
         event = form["event"]
         run_tests(xml)
-        
+        verified_requirements = []
         ## This is how the actual requirement verification loop will look like
         #for req in requirements:
         #    print("Parsing Requirement: " + req)
         #    parsed_requirement = parse_requirement(req)
         #    if parsed_requirement:
         #        print("Verifying Requirement: " + req)
-        #        print("Requirement " + req + " is " + verify(parsed_requirement))
+        #        try:
+        #            result = verify(req)
+        #            verified_requirements.append((req, result))
+        #           print("Requirement " + req + " is " + result)
+        #        catch:
+        #            print("Requirement " + req + " ran into a problem while verifying (was parsed correctly)")
         #    else:
         #        print("Requirement: " + req + " could not be parsed")
 
