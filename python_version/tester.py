@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from hashmap import HashTable
-from util import sync_exists, directly_follows_must, directly_follows_can, timeouts_exists, exists_by_label, get_ancestors, compare_xpaths, executed_by_annotated
+from util import data_objects, sync_exists, directly_follows_must, directly_follows_can, timeouts_exists, exists_by_label, get_ancestors, compare_xpaths, executed_by_annotated
 
 
 namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
@@ -53,6 +53,11 @@ def directly_follows_can_tests(tree):
     print("D and wait")
     print(directly_follows_can(tree, exists_by_label(tree, "D"), exists_by_label(tree, "wait")))
 
+def data_tests(tree):
+    print("data_objects")
+    output = data_objects
+    print(output)
+
 def time_tests(tree):
     print("Timeouts:")
     print(timeouts_exists(tree))
@@ -62,5 +67,6 @@ def time_tests(tree):
 
 def run_tests(tree):
     generic_tests(tree)
-    time_tests(tree)
+    #time_tests(tree)
+    data_tests(tree)
 

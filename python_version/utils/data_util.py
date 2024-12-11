@@ -8,5 +8,13 @@ from hashmap import HashTable
 # This will either be a recursive function or a depth first search 
 def data_objects(root):
     namespace = {"ns0": "http://cpee.org/ns/description/1.0"}
-    for child in root:
-        pass
+    tags_to_match = ["call", "manipulate", "loop", "alternative"]
+
+    # Find and iterate over all matching elements
+    for tag in tags_to_match:
+        for elem in root.findall(tag, namespace):
+            # Extract details
+            name = elem.find('name').text
+            value = elem.find('value').text
+            print(f"Tag: {elem.tag}, Name: {name}, Value: {value}")
+    return True

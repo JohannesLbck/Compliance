@@ -169,7 +169,7 @@ def by_due_date_explicit(tree, a, time):
         return False ## No matching sync object found
     else:
         return True
-## By Due Data: implicit
+## By Due Date: implicit
 def by_due_date_implicit(tree, a):
     apath = exists(a, tree)
     if apath:
