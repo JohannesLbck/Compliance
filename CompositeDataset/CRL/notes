@@ -1,0 +1,5 @@
+Their process is a bit confusing since it uses swimlanes and message exchanges, however it looks like its a single instance process (not a collaborative) and several moments would not need a message exchange. The swimlanes are basicially just used to indicate resources. There are also several deadlocks such as a parallel where one side will infinitly wait for a message that will never arrive, while the other side is already finished.
+==> Decision was made to model the entire process as a single instance orchestration as well, while getting rid of all the deadlocks and removing unneeded message exchanges that are just creations of dataobjects instead of messages
+
+
+R1 is an example of a requirement that would (normally) require looking into an endpoint

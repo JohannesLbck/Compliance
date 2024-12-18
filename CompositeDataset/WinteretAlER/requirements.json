@@ -1,0 +1,5 @@
+{
+	"R1": "In order that access to an IT system is reliably prevented during a short absence of the IT user, it should only be possible to disable a screen lock after successful user authentication",
+	"R2": "It should be possible for the user to activate the screen lock manually",
+	"R3": "In addition, the screen lock should be automatically initiated after a predefined period of inactivity"
+}
