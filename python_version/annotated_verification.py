@@ -193,5 +193,13 @@ def by_due_date_implicit(tree, a):
 def max_time_between(tree, a, b, time):
     pass
 
+## Data
+# data value reached leads to Activity
+def data_leads_to(tree, data_object, data_value, label):
+    pass
+# data precedence activity
+def data_precedence(tree, data_object, data_value, label):
+    pass
+
 ## Obligations vs Permissions: These can be modeled on the requirements side, using ands, ors and by just included the rule or not
 ## Complex resource requirements: These can also be modeled on the requirements side usind ands, ors and by just including rule or not

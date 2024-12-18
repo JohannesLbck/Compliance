@@ -1,0 +1,8 @@
+{
+	"R1": "exists(obtain bank report) && exists(analyze bank report)",
+	"R2": "data_leads_to(bank_evaluation, false, add to blacklist",
+	"R3": "data_precedence(risk, false, open bank account)",
+	"R4": "data_leads_to(bank_status_first_time, true, advanced due diligence test",
+	"R5": "not data_leads_to(bank_rating, false, open bank account)",
+	"R6": "data_precedence(bank certificate, true, open bank account)"
+}

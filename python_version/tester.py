@@ -22,9 +22,8 @@ def generic_tests(tree):
     print(tree.findall(".", namespace))
     print(tree.findall("ns0:call", namespace))
 
-def executed_by_tests(tree):
+def resource_tests(tree):
     print(executed_by_annotated(exists_by_label(tree, "F"), tree,))
-    print("f and d")
 
 def directly_follows_must_tests(tree):
     print(directly_follows_must(tree, exists_by_label(tree, "F"), exists_by_label(tree, "D")))
@@ -66,7 +65,10 @@ def time_tests(tree):
     pass
 
 def run_tests(tree):
+    print("Generic Tests:")
     generic_tests(tree)
     #time_tests(tree)
-    data_tests(tree)
+    #data_tests(tree)
+    print("Resource Tests:")
+    resource_tests(tree)
 
