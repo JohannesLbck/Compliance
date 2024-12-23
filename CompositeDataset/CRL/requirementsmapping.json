@@ -1,0 +1,9 @@
+{
+	"R1": "subprocess(exists(send data processing notifcation email),check credit worthiness)",
+	"R2": "precedence(Check Customer Bank Privilege, Evaluate Loan risk) and precedence(Check Credit Worthiness, Evaluate LoanRisk) and leads_to(Check Customer Bank Privilege, Check Credit Worthiness)",
+	"R3": "executed_by(customer bank privilege check, credit broker) or executed_by(customer bank privilege check, supervisor and executed_by(credit worthiness check, post processing clerk) and executed_by_return(customer bank privilege check) != executed_by_return(credit worthiness check)",
+	"R4": "executed_by(Evaluate Loan Risk, manager) and executed_by(Sign officially Loan Contract, manager)",
+	"R5": "max_time_between(Sign officially Loan Contract, Perform Loan Settlement, 7 working days)",
+	"R6": "data_leads_to(amout, > 1.000.000, check credit worthiness)and absence_leads_to_data(supervisor check, suspence file)",
+	"R7": "Checking banking privileges is optional for trusted (gold) customers. If a trusted (gold) customer’s loan request is less than 1M Euros, the evaluation of the loan risk is not performed"
+}
