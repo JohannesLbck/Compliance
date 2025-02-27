@@ -5,7 +5,8 @@ This readme contains instructins on how to use the developed tool (A) with exist
 
 The prompts used for generating ASTs out of Natural Language / Textual Process Descriptions, are in the ExtractionPrototype Directory.
 
-The complete Documentation would normally be linked as a editable and stylized google doc here, but that could also be used to identify the authors so instead a simple version of the documentation is in documentation.txt
+The complete Documentation can be found in a [Google Doc](https://docs.google.com/document/d/1zmmlLmjx7WXjEr13STYjuhUX3BA8nUhPKcK7uclMJtI/edit?usp=sharing).
+In case this link breaks for any reason during the Review phase it is also in documentation.txt.
 
 For Reviewers it is only possible to use (C) and (D) since, (A) and (B) would reveal information about the authors
 ## (A) Testing with existing Processes
