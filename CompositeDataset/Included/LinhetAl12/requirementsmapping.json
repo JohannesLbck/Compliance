@@ -1,0 +1,4 @@
+{
+	"R1": "max_time_between('upload exercise task', 'receive exercise submission', 604800)",
+	"R2": "leads_to('receive exercise submission', 'evaluate prsentation')"
+}

@@ -1,0 +1,11 @@
+{
+	"R0":"precedence('obtain consent', 'provide information') ",
+	"R1": "data_value_alternative_directly_follows('not data.consented', 'terminate')",
+	"R2":"directly_follows('Start Activity', 'verify identity')",
+	"R3": "executed_by('verify identity', 'trained assistant')",	
+	"R4":"data_value_alternative_eventually_follows('assessment_status == \"physician\"', 'direct questions')",
+       	"R5":"executed_by('direct questions', 'physician')",
+	"R6":"activity_receives('conduct interview','assessment_status') and activity_receives('conduct questionnaire','assessment_status') and activity_receives('direct questions','assessment_status')",
+	"R7":"data_value_alternative_eventually_follows('assessment_status == \"rejected\"', 'inform of rejection') and data_value_alternative_eventually_follows('assessment_status == \"deferred\"', 'inform of deferral')",
+      	"R8": "directly_follows('retract consent', 'terminate') and parallel('retract consent', 'conduct interview') and parallel('retract consent', 'conduct questionnaire')"
+}

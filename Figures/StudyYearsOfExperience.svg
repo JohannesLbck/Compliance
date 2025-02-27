@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="103mm" height="68mm" viewBox="0 0 10300 6800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" stroke-width="28.222" stroke-linejoin="round" xml:space="preserve">
+ <path fill="rgb(255,255,255)" stroke="none" d="M 5133,6814 L -13,6814 -13,-13 10278,-13 10278,6814 5133,6814 Z"/>
+ <path fill="rgb(255,66,14)" stroke="none" d="M 5133,337 C 4852,337 4573,381 4307,467 4040,554 3789,682 3562,847 3335,1012 3136,1211 2971,1438 2958,1455 2946,1473 2933,1491 L 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,337 Z"/>
+ <path fill="rgb(255,211,32)" stroke="none" d="M 2933,1491 C 2787,1704 2671,1937 2591,2183 2505,2449 2461,2728 2461,3008 2461,3289 2505,3567 2591,3833 2678,4100 2806,4351 2971,4578 3136,4805 3335,5004 3562,5169 3789,5334 4040,5462 4307,5549 4573,5635 4852,5680 5132,5680 5347,5680 5562,5653 5771,5602 L 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 2933,1491 Z"/>
+ <path fill="rgb(87,157,28)" stroke="none" d="M 5771,5602 C 5834,5586 5896,5569 5957,5549 6224,5462 6475,5334 6702,5169 6929,5004 7128,4805 7293,4578 7458,4351 7586,4100 7673,3833 7759,3567 7804,3289 7804,3009 7804,2728 7759,2449 7673,2183 7586,1916 7458,1665 7293,1438 7128,1211 6929,1012 6702,847 6475,682 6224,554 5957,467 5691,381 5412,337 5133,337 L 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5133,3009 5771,5602 Z"/>
+ <path fill="rgb(0,69,134)" stroke="none" d="M 792,6393 L 687,6393 687,6182 898,6182 898,6393 792,6393 Z"/>
+ <path fill="rgb(255,66,14)" stroke="none" d="M 3998,6393 L 3893,6393 3893,6182 4104,6182 4104,6393 3998,6393 Z"/>
+ <path fill="rgb(255,211,32)" stroke="none" d="M 6094,6393 L 5988,6393 5988,6182 6199,6182 6199,6393 6094,6393 Z"/>
+ <path fill="rgb(87,157,28)" stroke="none" d="M 8190,6393 L 8084,6393 8084,6182 8295,6182 8295,6393 8190,6393 Z"/>
+ <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="998" y="6407"><tspan font-family="Liberation Sans, sans-serif" font-size="353px" font-weight="400" fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Less than 1 Year</tspan></tspan></tspan></text>
+ <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="4204" y="6407"><tspan font-family="Liberation Sans, sans-serif" font-size="353px" font-weight="400" fill="rgb(0,0,0)" stroke="none" style="white-space: pre">1-2 Years</tspan></tspan></tspan></text>
+ <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="6299" y="6407"><tspan font-family="Liberation Sans, sans-serif" font-size="353px" font-weight="400" fill="rgb(0,0,0)" stroke="none" style="white-space: pre">2-4 Years</tspan></tspan></tspan></text>
+ <text class="SVGTextShape"><tspan class="TextParagraph"><tspan class="TextPosition" x="8395" y="6407"><tspan font-family="Liberation Sans, sans-serif" font-size="353px" font-weight="400" fill="rgb(0,0,0)" stroke="none" style="white-space: pre">4+ Years</tspan></tspan></tspan></text>
+</svg>

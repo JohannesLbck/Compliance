@@ -1,0 +1,30 @@
+Verifying Requirement R0: precedence(tree, 'venepuncture','inspect blood container')
+Activity "inspect blood container" was found before "venepuncture", so precedence "venepuncture" requires "inspect blood container" before is True
+Result: Requirement R0 is True
+Verifying Requirement R1: data_value_alternative_eventually_follows(tree, 'data.blood_bag_condition == "damp"', 'replace blood bag')
+Condition mapped via in compared to ==, lower assurances
+While Branch following condition "data.blood_bag_condition == "damp"" was found, the Activity "replace blood bag" was not found on the branch
+Result: Requirement R1 is False
+Verifying Requirement R2: data_value_alternative_eventually_follows(tree, 'data.blood_bag_condition == "damp" || data.status == "exception"', 'report defects')
+While Branch following condition "data.blood_bag_condition == "damp" || data.status == "exception"" was found, the Activity "report defects" was not found on the branch
+Result: Requirement R2 is False
+Verifying Requirement R3: directly_follows(tree, 're-identify donor', 'venepuncture')
+Activity "venepuncture" does not directly follow "re-identify donor"
+Result: Requirement R3 is False
+Verifying Requirement R4: precedence(tree, 'venepuncture', 'disinfect venepuncture site')
+Activity "disinfect venepuncture site" was found before "venepuncture", so precedence "venepuncture" requires "disinfect venepuncture site" before is True
+Result: Requirement R4 is True
+Verifying Requirement R5: data_value_alternative_eventually_follows(tree, 'not data.venepuncture_status == "successful"', 'venepuncture other arm') and precedence(tree, 'venepuncture other arm', 'obtain consent')
+Branch default was found which matches to notdata.venepuncture_status=="successful", lower assurance
+Activity "venepuncture other arm" was found on branch following condition "not data.venepuncture_status == "successful""
+Activity "venepuncture other arm" was found but Activity "obtain consent" was not found, so precedence "venepuncture other arm" requires "obtain consent" before it is false
+Result: Requirement R5 is False
+Verifying Requirement R6: max_time_between(tree, 'collect blood', 'monitor patient', 900)
+Identified a timeout in an event based gateway relationship with "monitor patient"
+Result: Requirement R6 is True
+Verifying Requirement R7: directly_follows(tree, 'check donation number','end activity')
+Activity "end activity" does not directly follow "check donation number"
+Result: Requirement R7 is False
+Verifying Requirement R8: exists(tree, 'report any adverse reactions')
+Result: Requirement R8 is False
+

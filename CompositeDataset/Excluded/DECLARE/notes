@@ -1,0 +1,3 @@
+its declarative so it has no real example process model, but it does have rules (which are what defines the models)
+
+The rules also allow undesired but realistic behaviour that should be modeled into the imperative process

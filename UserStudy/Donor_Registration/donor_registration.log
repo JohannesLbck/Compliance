@@ -1,0 +1,37 @@
+Verifying Requirement R0: precedence(tree, 'obtain consent', 'provide information')
+Activity "provide information" was found before "obtain consent", so precedence "obtain consent" requires "provide information" before is True
+Result: Requirement R0 is True
+Verifying Requirement R1: data_value_alternative_directly_follows(tree, 'not data.consented', 'terminate')
+Found no branch which matches to notdata.consented
+No branch with condition: "not data.consented" was found
+Result: Requirement R1 is False
+Verifying Requirement R2: directly_follows(tree, 'Start Activity', 'verify identity')
+Activity "verify identity" directly follows Activity "Start Activity" is True
+Result: Requirement R2 is True
+Verifying Requirement R3: executed_by(tree, 'verify identity', 'trained assistant')
+Activity "verify identity" does not have an annotation Resource "trained assistant"
+Result: Requirement R3 is False
+Verifying Requirement R4: data_value_alternative_eventually_follows(tree, 'assessment_status == "physician"', 'direct questions')
+Condition mapped via in compared to ==, lower assurances
+While Branch following condition "assessment_status == "physician"" was found, the Activity "direct questions" was not found on the branch
+Result: Requirement R4 is False
+Verifying Requirement R5: executed_by(tree, 'direct questions', 'physician')
+Activity "direct questions" is executed by Resource "physician"
+Result: Requirement R5 is True
+Verifying Requirement R6: activity_receives(tree, 'conduct interview','assessment_status') and activity_receives(tree, 'conduct questionnaire','assessment_status') and activity_receives(tree, 'direct questions','assessment_status')
+data object "assessment_status" is finalized from Activity "conduct interview"
+data object "assessment_status" is finalized from Activity "conduct questionnaire"
+data object "assessment_status" is finalized from Activity "direct questions"
+Result: Requirement R6 is True
+Verifying Requirement R7: data_value_alternative_eventually_follows(tree, 'assessment_status == "rejected"', 'inform of rejection') and data_value_alternative_eventually_follows(tree, 'assessment_status == "deferred"', 'inform of deferral')
+Condition mapped via in compared to ==, lower assurances
+Activity "inform of rejection" was found on branch following condition "assessment_status == "rejected""
+Found no branch which matches to assessment_status=="deferred"
+No branch with condition: "assessment_status == "deferred"" was found
+Result: Requirement R7 is False
+Verifying Requirement R8: directly_follows(tree, 'retract consent', 'terminate') and parallel(tree, 'retract consent', 'conduct interview') and parallel(tree, 'retract consent', 'conduct questionnaire')
+Found a terminate that directly follows "retract consent"
+Activities "retract consent" and "conduct interview" are in parallel
+Activities "retract consent" and "conduct questionnaire" are in parallel
+Result: Requirement R8 is True
+

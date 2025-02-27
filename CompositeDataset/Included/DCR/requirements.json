@@ -1,0 +1,9 @@
+{
+	"R1": "The consult event should occur before checking the symptoms",
+	"R2": "Checking symptoms should occur before setting a diagnosis",
+	"R3": "The prescription of medicine occurs only after the diagnosis is set",
+	"R4": "Event feel sick occurs after the medicine is give",
+	"R5": "Event feel healthy occurs after the medicine is given",
+        "R5": "Events feel sick and feel healthy should not simultaneously occur"
+
+}

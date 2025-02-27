@@ -1,0 +1,4 @@
+{
+	"R1": "loop('check document management system')",
+	"R2": "leads_to('create resolution proposal', 'analyse reports') and activity_receives('create resolution proposal', 'resolution_proposal') and activity_receives('generate consultative report', 'report_cb') and activity_receives('generate legal report', 'report_ld') and exists('analyse reports') and executed_by_return('analyse reports') == executed_by_return('create resolution proposal')"
+}

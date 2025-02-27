@@ -1,0 +1,9 @@
+{
+	"R1": "parallel('send automated email', 'check credit worthiness')",
+	"R2": "precedence('evaluate loan risk', 'customer bank privilege check') and precedence('evaluate loan risk', 'check credit worthiness') and leads_to('customer bank privilege check', 'check credit worthiness')",
+	"R3": "executed_by('customer bank privilege check', 'credit broker') or executed_by('customer bank privilege check', 'supervisor') and executed_by('check credit worthiness', 'data.post_processing_resource') and executed_by_return('customer bank privilege check') != executed_by_return('credit worthiness check')",
+	"R4": "executed_by('evaluate loan risk', 'manager') and executed_by('officially sign loan contract', 'manager')",
+	"R5": "max_time_between('officially sign loan contract', 'perform loan settlement', 604800)",
+	"R6": "data_value_alternative_eventually_follows('data.loan_amount > 1000000', 'assign post processing to supervisor')",
+	"R7": "not data_value_alternative_eventually_follows('data.customer_status == gold && data.loan_amount < 1000000','evaluate loan risk','global')"
+}

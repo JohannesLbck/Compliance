@@ -1,0 +1,11 @@
+{
+	"R0": "precedence('venepuncture','inspect blood container')",
+       	"R1": "data_value_alternative_eventually_follows('data.blood_bag_condition == \"damp\"', 'replace blood bag')",
+	"R2": "data_value_alternative_eventually_follows('data.blood_bag_condition == \"damp\" || data.status == \"exception\"', 'report defects')",
+	"R3": "directly_follows('re-identify donor', 'venepuncture')",
+	"R4": "precedence('venepuncture', 'disinfect venepuncture site')",
+	"R5": "data_value_alternative_eventually_follows('not data.venepuncture_status == \"successful\"', 'venepuncture other arm') and precedence('venepuncture other arm', 'obtain consent')",
+	"R6": "max_time_between('collect blood', 'monitor patient', 900)",
+	"R7": "directly_follows('check donation number','end activity')",
+	"R8": "exists('report any adverse reactions')"
+}

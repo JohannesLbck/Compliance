@@ -1,0 +1,13 @@
+Description:
+Before the Blood collection can begin the blood bag which serves as a container for collected blood needs to be inspected for defects using the blood bag system. If the blood bag is found to be damp, the bag needs to be replaced. After the inspection of the blood bag, the actual blood collection can begin. First, directly before the venepuncture the donors are re-identified. Before the actual venepuncture, the venepuncture site also needs to be disinfected. One the venepuncture has been completed. The blood is collected for no longer than 5 minutes. Afterwards, the donor is monitored for at least 15 minutes. If the donor is still bleeding after 15 minutes the donor's condition is re-evaluated by a physician and the blood has to be marked as unusable for the preparation of platelets. The final activity is always the verification of the donation number on all records, blood bags and laboratory samples.
+Requirements:
+R1: The blood container needs to be inspected before use for defects. If the blood bag used as a blood container is found to be abnormally damp, then the blood bag needs to be replaced.
+R2: The donor should be re-identified immediately prior to venepuncture
+R3: The venepuncture site should be disinfected before the venepuncture. 
+R4: After the blood collection, the donor should be monitored for at least 15 minutes. If the duration of the bleeding after a blood collection is longer than 15 minutes, a physician needs to be informed who will assess the donor.
+R5: The last activity should be to check the donation number on all records, blood bags and laboratory samples.
+
+Activities: inspect blood container, replace blood bag, re-identify donor, venepuncture, disinfect venepuncture site, collect blood, monitor patient, inform physician, assess donor, check donation number
+DataObjects: blood_bag_condition {“normal”, “damp”, … }, donor_identified (Boolean)
+Resources: trained assistant, physician
+Times: All times in seconds

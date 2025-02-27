@@ -1,0 +1,8 @@
+{
+	"R1": "in case of a data breach, the Data Controller has to communicate it within 72 h to the National Authority as well as to the Data Subject. This constraint is not subject to any de minimis standard, thus any data breach, it does not matter how small, needs to be always communicated in a simple way along with the actions that will be performed to limit the damage.",
+	"R2": "Consent to Use the Data: when retrieving personal data, the Data Controller needs to ask the Data Subject for consent and to provide the Data Subject with information about the intentions on how to use and/or process the data.",
+	"R3": "Right to Access and Rectify: at any moment, the Data Subject has the right to access and rectify the personal data associated to her. As a result, the Data Controller has the obligation to satisfy these requests.",
+	"R4": "Right of Portability: at any moment, the Data Subject has the right to ask for the portability of the data associated to her to third parties and the Data Controller has the obligation to satisfy this request.",
+        "R5": "Right to Withdraw : at any moment, the Data Subject can withdraw the consent to use the data associated to her and the Data Controller has to stop using such data.",
+	"R6": "The Right to be Forgotten: if the Data Subject wants her data to be deleted, the Data Controller has the obligation to satisfy this request."
+}

@@ -1,0 +1,9 @@
+{
+	"R1": "precedence('conduct risk disclosure', receive_exist('customer_data'))",
+	"R2": "executed_by(send_exist('customer_brochures'), 'customer_advisor')",
+	"R3": "leads_to('conclude custody account', send_exist('custody_account_contract'))",
+	"R4": "executed_by('conduct investment advice', 'securities customer advisor')",
+    "R5": "executed_by('conduct customer identification & legitimation', 'customer advisor') and executed_by('conduct customer identification & legitimation', 'money laundering officer')",
+    "R6": "precedence('conclude custody account', 'conduct customer identification & legitimation')",
+    "R7": "data_value_alternative_eventually_follows('not data.customer.status == \"new\"', 'update customer data')"
+}

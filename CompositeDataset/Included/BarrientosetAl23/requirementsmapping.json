@@ -1,0 +1,3 @@
+{
+	"R1": "exists(collect spoiled fruit data) and executed_by(collect spoiled fruit data, supervisor) and max_time_between(load trucks, collect spoiled fruit data, 30mi"
+}

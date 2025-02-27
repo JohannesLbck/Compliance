@@ -1,0 +1,7 @@
+{
+	"R1": "If a job gets rejected, no further actions are possible",
+	"R2": "A case cannot be closed before all segments are translated",
+	"R3": "The TM cannot be updated automatically if the alignment is unverified",
+	"R4": "Segment can only be created until the translation is started",
+	"R5": "If a case gets accepted, the TM must eventually be updated"
+}

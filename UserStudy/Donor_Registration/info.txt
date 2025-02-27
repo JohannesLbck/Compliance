@@ -1,0 +1,13 @@
+Description:
+Upon arrival at the blood establishment, the identity of donors is verified. Afterwards information regarding the purpose and effects of blood donations must be provided to the donors, before obtaining explicit consent. If the consent is not given the process has to immediately stop. If consent is given, the eligibility of the donor should be assessed using an interview, a questionnaire and further direct questions, if necessary. Further questions are necessary if the interview and questionnaire require a physician's assessment or reveal results that are not covered by the guidelines and should be conducted by a physician. Depending on the results of the eligibility assessments, potential donors should be either accepted, rejected or deferred. In both the cases of rejection and deferral the individuals should be given a clear explanation of the reasons for deferral / rejection.
+Requirements:
+R1: Explicit consent can only be obtained if information regarding the purpose and effects of blood donations was provided. If consent is not given the process has to immediately terminate.
+R2: The first Activity has to be the verification of the identity of a potential donor. This activity has to be executed by a trained assistant. 
+R3: If results from the interview and questionnaire require a physician's assessment, the activity direct questions should be conducted by a physician.
+R4: Depending on the results of the assessments the donor should be either accepted, rejected or deferred.
+R5: If a potential donor is rejected or deferred, an explanation of the reasons for deferral and rejection need to be given respectively.
+
+Activities: obtain consent, provide information, verify identify, conduct interview, conduct questionnaire, direct questions, inform of rejection, inform of deferral 
+DataObjects: donor_information (Str), consented ( Boolean), physician_needed ( Boolean), assessement_status ({“accepted”, “rejected”, “deferred”), assessement_reason( Str)
+Resources: trained assistant, physician
+Times: All times in seconds

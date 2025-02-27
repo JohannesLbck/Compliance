@@ -1,0 +1,9 @@
+{
+	"R1": "The customer should receive an automated email notification when his personal data is collected by the ‘credit bureau service’",
+	"R2": "The checking of the customer bank privilege that is followed by checking of her credit worthiness must take place before determining the risk level of the loan application",
+	"R3": "The activity ‘customer bank privilege check’ (to be performed by credit broker or supervisor) should be segregated from ‘credit worthiness check’ (to be performed by post-processing clerk)",
+	"R4": "The branch office manager checks whether risks are acceptable and makes either the final approval or rejection of the request",
+	"R5": "The offer in the signed loan contract is valid for 7 working days and afterwards it is closed",
+	"R6": "If the loan request’s credit exceeds 1 million Euro (1M e) the clerk supervisor checks the credit worthiness of the customer. The lack of the supervisor check immediately creates a suspense file. In case of failure of the creation of a suspense file, the manager is notified by the system",
+	"R7": "Checking banking privileges is optional for trusted (gold) customers. If a trusted (gold) customer’s loan request is less than 1M Euros, the evaluation of the loan risk is not performed"
+}

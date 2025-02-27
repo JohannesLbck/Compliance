@@ -1,0 +1,8 @@
+{
+	"R1": "exists(data breach verification)",
+	"R2": "exists(Request personal data)",
+	"R3": "exists(update Request)",
+	"R4": "exists(Ask Portability)",
+    "R5": "exists(Withdrawal Request)",
+	"R6": "exists(Delete Request)"
+}

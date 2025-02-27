@@ -1,0 +1,5 @@
+{
+	"R1": "precedence('verify symptoms', 'consult')",
+	"R2": "leads_to('verify symptoms', 'diagnosis')",
+	"R3": "precedence('prescribe medicine', 'verify symptoms')"
+}
