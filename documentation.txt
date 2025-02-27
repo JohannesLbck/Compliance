@@ -1,0 +1,137 @@
+General Design Decisions - This document is subject to change when the project is continued and only fixed for the Review Phase
+Before diving into the actual functions that are part of the PTC, there are several general decision decisions as well as the Project / Module Structure that need to be discussed.
+Jump to Verification Methods, if you are only interested in the actual expressivity of the compliance checking (Documentation of annotated_verification).
+Module Structure:
+The structure of the tool is a bit of a mess between object oriented and imperative programming, since the functional requirements of the tool were unclear at the start of the project and it was also unclear which functionalities were feasible.
+The Classes are:
+AssuranceLogger - assurancelogger.py
+A custom logger that reduces an assurance level when warnings are logged and stores the Activities and missing Activities such that the Compliance log is a bit more useful. Shared states are achieved using class-level attributes. Can also be extended with other shared states for say branches, etc
+MethodValidator - verificationAST.py
+A custom Class inheriting from ast.NodeVisitor, which defines what type of code can be passed as a requirement. AST = Abstract Syntax Tree (c.f. Wikipedia). In particular, it allows all the functions of the annotated_verification module (see below) as well as standard functions (if, and, or, etc). However it prevents attribute access and access to other modules.
+HashTable - hashmap.py
+A Class which implements a standard hashmap for storing previous processes on disk. Currently no further use, but can in the future be used to implement verification algorithms that only look at the changed part in a process.
+The Modules are:
+compliancesub.py
+The “Main” module, which contains the compliance subscriber. Started via python3 compliancesub.py. Connected to all other modules / classes. Contains the code for the subscriber, for the iterating over the requirements and a little code-piece for making the service run in the background. The little code-piece is created by the author(s) and has been used for various projects under a MIT license.
+annotated_verification.py
+The main verification class which is used by the MethodValidator to verify requirements. It contains all the Methods that are under Verification Methods below. It's designed as a module, such that it can be replaced by a potential explicit_verification.py when the annotated way of verifying is not desired.
+tester.py
+A small module to run multiple tests without having to pass specific requirements, purely for testing. Currently its only method open to the other modules (run_tests()) is commented out. Can be used for future development
+util.py
+An interface module, that provides an interface to all the lower level util modules, see below. Also recommended to look into this when interested in where to find a specific method used in annotated verification, since it intentionally imports the methods by name instead of import *
+utils/control_util.py
+Contains various methods for verifying control flow requirements, should only be accessed through util.py
+utils/data_util.py
+Contains various methods for verifying data flow requirements, documentation in code
+utils/general_util.py
+Contains various methods for general utility, documentation in code
+utils/resource_util.py
+Contains various methods for verifying resource requirements, documentation in code
+utils/time_util.py
+Contains various methods for verifying resource requirements, documentation in code
+reqparser.py
+Used for parsing requirements into code that can be parsed by the MethodValidator. The current version of this module really only adds tree attributes to method calls, for a bit cleaner representation of the requirements and to show how different languages could be parsed to the AST without having to further modify the backend. For example the reqparser.py could also be used to parse requirements from defeasible logic into and AST to achieve both high security and modularity
+
+Design Philosophy / Design Goals / Non-functional Requirements
+While the functional requirements were unclear at the beginning of the Project and accordingly the project structure is a bit messy, there were several non-functional requirements.
+Modularity / Extensibility
+The most important goal during the development was extremely high modularity / Extensibility through extremely low coupling, since the functional requirements were highly dynamic. Accordingly, the modules are designed to be exchangeable and sometimes instead of relying on classes that have to inherit methods from each other, the verification is split into modules that can be freely exchanged as long as the method names stay the same. The disadvantage is that the code is in many cases more verbose and requires more ram. However the ram is negligible and verbose code is often highly understandable (Second goal)
+Understandability / Transparency / Reproducibility
+The second goal was that the code and compliance enforcement strategies are highly transparent and can be easily understood and reproduced. This was achieved through certain guidelines: 
+Keep the amount of “new” or “rare” BPM elements to a minimum
+⇒ Use timeout instead of sync and due date if possible
+⇒ Minimize the use of elements rarer than event based gateways
+Choose enforcement strategies that are visually understandable compared to hidden methods.
+⇒ Instead of annotating time requirements that are then checked by a endpoint during execution, the time requirements should be explicitly modeled in the process through timeouts / parallels / syncs
+Extensive comments and log messages, with examples of how to modify the logger for different log levels ( for bug fixing)
+Human in the Loop
+An additional important goal was to ensure that the human always has the final say. For executable processes the modeler has a lot of freedom on how a process can be implemented, especially through scripts that can be inserted at any point in the process (even at different stages during single activities) as well as how exactly endpoints are designed. The tool should be as little intrusive as possible, by only providing suggestions on how compliance can be enforced instead of enforcing specific implementations and by not enforcing specific ways of how endpoints have to be designed.
+Security / Safety
+The final goal was to protect against injection attacks of all kinds. Verifying requirements is impossible without at some point executing code that is passed either through the process tree or/and the requirements. Accordingly, requirements are parsed into an AST which can only access a small set of functions.
+
+
+Verification Methods
+Logic -> See Graphics Collection
+if <- done
+	Included by default due to parsing into an AST
+Permission <- undone
+Could be added for an extended compliance log, but currently we only look at obligations and prohibitions
+Obligation <- undone
+We currently assume this to be the default
+Prohibition <- done
+negative Obligation, so no need to manually add it, can just write not
+Compensation <- Future Work
+uture work 
+Persistence < Future Work
+future work
+Start Activity <- done
+	Root is treated as a activity called root
+End Activity <- done,
+	End is treated as a Activity called end
+Control Flow
+parallel(tree, a, b) <- returns True or False
+	Checks if two Activities are in parallel, also works for terminates, timeout and syncs
+Event_based_gateway(tree, a, b) <- returns True or False
+Checks if two Activities are in an event based gateway relationship, also works for terminates, timeouts and syncs
+exists(tree, a) <- returns the Object Itself which is evaluated to True/False if not inside another method
+Checks if a Activity exists in the tree, also works for Start, End, terminate, sync and timeout. Returns the element itself (which evaluates to True if it is by itself) but can accordingly also be used in other checks
+absence(tree, a) <- returns True/False
+Checks if a Activity is absent in the tree. Works as a not exists, so it does NOT return the object if it exists
+directly_follows(a, b) <- returns True/False
+	Checks if a directly follows b
+leads_to(tree, a, b) <- returns True/False
+Checks if a Activity a leads to a Activity b in the process, this also accounts for parallels and exclusive choices, meaning a potentially leads to (a before exclusive, b on the exclusive branch) is regarded as False, and a and b on different parallel branches are false. Meanwhile a and b on the same parallel or exclusive branch are checked for order normally
+precedence(tree, a, b) <- returns True/false
+Checks if an Activity a has a Activity b before it, just like leads_to it accounts for exclusives and parallels. Does not require the activity b to be directly before activity a.
+absence_leads_to(tree, a, b) <- returns True/False
+Checks if an Activity a is absent before an Activity b, essentially this means if a exists it has to be after b while accounting for parallels and exclusives
+leads_to_absence(tree, a, b) <- returns True/False
+Checks if a exists and if it exists that b is not after it, accounts for parallels and exclusives
+loop(tree, a) <- returns True / False
+Checks if a activity a exists on a loop, returns the loop if it does returns None if not, it is handled this way such that it can also be used to compare if various activities are on the same loop using loop(a) == loop(b) as well as other types of checks
+Resource <- Purely annotated reasoning in paper, or reach out to discuss
+executed_by(tree, a, resources) <- returns True/False
+	Checks whether a activity a is executed by resource resource, returns true or false
+executed_by_return(tree, a) <- returns a string that represents the resource
+Returns the resource that is executing activity a, used to compare resources for requirements such as segregation of tasks
+executed_by_identify(tree, resource) <- returns a activity (can be passed just like activity labels to other methods)
+Returns the element (Activity) that is currently executed by a resource, can be used to check whether a activity executed by a resource is in other relationships (parallel, leads_to, etc)
+Data
+send_exists(tree, data) <- returns the activity or None, can be used as argument
+Checks if data data is sent, returns the activity if it is, returns None if not, currently on the first
+receive_exists(tree, data) <- returns the activity or None, can be used as argument
+Checks if data data is sent, returns the path if it is, returns None if not, currently only the first
+activity_sends(tree, a, data) <- returns True/False
+	Checks if activity a, sends data data, returns True or False
+activity_receives(tree, a, data) <- returns True/False
+	Checks if activity a receives data, returns True or False
+data_value_alternative(tree, condition) <- returns True/False
+Checks if a branch with condition == condition or condition in condition or condition in  default exists with default being not_condition for every condition, potential source of errors, since the conditions could be quite complicated (including ifs and calculations and such but might still match through a condition in condition, accordingly any method that looks at data conditions reduces the assurances
+data_value_alternative_directly_follows(tree, condition, activity) <- returns True/False
+	Checks if a branch with condition directly leads to a activity, same limitation as above
+data_value_alternative_eventually_follows(tree, condition, activity, scope = “branch”) <- returns True/False
+Checks if a branch with condition eventually leads to an activity. There are two options for the scope here either on the same branch which is the default or at any point AFTER the data condition, which has to be manually set with scope = “global”
+data_leads_to_absence(tree, condition, label <- returns True/False
+	See above, same thing but just with a absence instead of a exist at the end
+Time
+All dates and arguments towards the sync / wait_until as well as timestamps should be unix timestamps
+While time itself refers to seconds
+recurring(tree, rule, time) <- returns True/False
+Checks whether any rule(s) is(are) recurring within a loop which executes after a wait for a specific time, could technically be modeled using some for a in list(activites): as well, but will add a specific version of it
+by_due_date_explicit(tree, a, timestamp) <- returns True/False
+Checks if a due date requirement is explicitly ensured through the existence of a due_date activity, which is a custom endpoint that just enforces a due data with a exclusive check after. This is just one of many ways to enforce a due date so there is also the option to just annotate the due date and enforce it different, see below
+by_due_date_annotated(tree, a, timestamp) <- returns True/False
+This also checks for a due date, but simply through checking in general annotation, accordingly, if just this check is used to enforce a due date the assurance is reduced
+by_due_date(tree, a, timestamp) <- returns True, False, use this method for the requirement
+See above, This checks both explicitly and through annotation. If the requirement is enforced explicitly or both, then it gives strong assurance, if only through annotation it gives weak assurance
+max_time_between(tree, a, b, time) <- returns True/False
+There are technically many ways to implement this and accordingly many ways this could be checked, we enforce here a very visually pleasing way of enforcing this, which is a event based gateway with a timeout. If said timeout finishes first it would mean that the max time between has passed. This is just one of many ways such as adding syncs before and after a and b, but this would be much less checkable and also have several. The enforced way also has the advantage that it uses only standard bpm objects (timeout, event based gateway) and not special symbols (syncs, etc)
+
+Additional Tools
+add_start_end(tree) <- undone
+Adds start and end as explicit activities such that they can be treated like other activities
+create_complete_tree(tree) <- done, but might lead to errors later
+Creates a complete tree by combining subprocess trees with the main tree, subprocesses are currently marked by a “description” element in the tree, which should be fine, and maybe even a feature but will see
+extend_requirements(requirements <- deprecated, decided this isnt needed
+Creates a extended requirements list, by making everything divided by an AND into its own requirements
+
