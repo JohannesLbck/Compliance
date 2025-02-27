@@ -1,7 +1,0 @@
-{
-	"R1": "Every process instance has to start with activity “register client data”. Data can also be altered at later stages (e.g., the client changes payment details).",
-	"R2": "Activity “bill” must be executed at least once,i.e., at least the number of nights will be billed. However, it might be that the bill is altered multiple times (e.g., room service during stay, damage in the room, etc.).",
-	"R3": "Every “room service” must be billed. However, it is possible that several services are billed at once, instead of billing each service separately.",
-	"R4": "Every “laundry service” must be billed. However, it is possible that several services are billed at once, instead of billing each service separately.",
-	"R5": "When the client “checks-out” the bill must be “charged”. It might be the case that the bill was charged before check-out, during check-out or even after check-out (e.g., credit card payment). Also, it must be possible that the total amount is charged at several stages during the stay."
-}
