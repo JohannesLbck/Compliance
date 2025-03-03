@@ -1,4 +1,4 @@
-#    Copyright (C) <2025>  <Johannes Löbbecke>
+#    Copyright (C) <2025>  <author>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -34,37 +34,7 @@ def parse_requirements(req):
         eval_req.append(parse_req(content))
     return eval_req
 
-# This really only replaces function(a, b) with function(tree, a, b) to highlight the potential to support other languages and make the used language a little cleaner by not requiring the tree call, which would not be necessary in a object oriented implementation as well
-#def parse_req(content):
-#    pattern = r'\w+\([^\)]+\)|\S+'
-#    patterns = re.findall(pattern, content)
-#    result = []
-#    print(patterns)
-#    for word in patterns:
-#        print(f'word: {word}')
-#        if "(" in word and ")" in word:
-#            function_name, args = word.split("(", 1)
-#            print(f'function_name: {function_name}')
-#            print(f'args: {args}')
-#            args = args.rstrip(")")
-#
-#            # Replace the function name if it's in the replacements dictionary
-#            new_function_name = method_dict.get(function_name, function_name)
-#
-#            # Recursively process the arguments
-#            new_args = parse_req(args)
-#
-#            modified_args = f"tree, {new_args}"
-#
-#            # Reconstruct the function call with updated name and arguments
-#            result.append(f"{new_function_name}({modified_args})")
-#        else:
-#            result.append(word)
-#        print(f'result: {result}')
-#    return " ".join(result)
-
-
-## The other messy regparser had some errors, replaced with this much simpler reqparser, hopefully its fine
+## enables writing an ast without the tree in every method as it would be in a proper object oriented implementation 
 def parse_req(string):
     result = []
     for word in string.split("("):
