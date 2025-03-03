@@ -12,7 +12,7 @@ data_decision_tags= [ ".//ns0:loop", ".//ns0:alternative"]
 logger = logging.getLogger(__name__)
 
 # Control Flow
-## Existence: Checks if an activity a exists in the xml tree and returns the xpath or None, this annotated version identifies by label
+## Existence: Checks if an activity a exists in the xml tree and returns the element or None, identifes by label, to identify using resource/data see below
 def exists(tree, a):#
     if isinstance(a, ET.Element):
         return a
@@ -29,11 +29,11 @@ def exists(tree, a):#
             logger.info(f'Activity "{a}" existence was checked but not found')
         return a_ele
 
-## Absence: opposite of exists, returns a Boolean NOT None or a element
+## Absence: opposite of exists, returns a Boolean 
 def absence(tree, a):
     return not Bool(exists(a, tree))
 
-## loop(tree, a): checks if an activity is in a loop, returns None or said the loop element
+## loop(tree, a): checks if an activity is in a loop, returns None or said loop element
 def loop(tree, a):
     loops = tree.findall(".//ns0:loop", namespace)
     for loop in loops:
@@ -51,7 +51,7 @@ def directly_follows(tree, a, b):
     if apath is not None:
         if bpath is not None:
             if a =="terminate":
-                logger.info(f'terminate can never lead to another activity, "{a}" directly follows "{b}" is False')
+                logger.info(f'terminate can never lead to another activity, "{b}" directly follows "{a}" is False')
             elif b == "terminate":
                 bpaths = tree.findall(".//ns0:terminate", namespace)
                 for bpath in bpaths:
@@ -278,7 +278,7 @@ def timed_alternative(tree, a, b, time):
         logger.info(f'Activity "{a}" is missing so the timed_alternative relationship is False')
         return False
 
-# Time, between two syncs, deprecated, after fighting with it for a while, I decided this is not a requirement that actually happens, so it is left in unfinished
+# Time, between two syncs, deprecated, after fighting with it for a while, I decided this is not a requirement pattern that actually happens, so it is left unfinished
 def min_time_between(tree, a, b, time):
     a_sync = False
     if leads_to(tree, a, b):
@@ -456,7 +456,7 @@ def data_value_alternative_directly_follows(tree, condition , a):
     if apath is None:
         logger.info(f'Activity "{a}" did not exist in the branch of condition: "{condition}"')
         return False
-    ## The following code is really stupid, since it first iterates over the entire branch to identify all elements into a list and then really only looks at the very next one, but in practice most branches wont be too long, and I do not know how to fix it atm
+    ## This is highly inefficient (3 Iterations instead of 1) but it works and is easy to understand)
     elements = [elem for elem in branch.iter() if elem.tag.endswith('call') or elem.tag.endswith("terminate")]
     for ele in elements:
         if counter == 1:
@@ -470,7 +470,7 @@ def data_value_alternative_directly_follows(tree, condition , a):
     return False
 
 
-## Eventually follows IN THE SAME BRANCH, this was a decision, that you normally want to then only have it in the same branch
+## Eventually follows a data condition. The default here is to check in the same branch (see scope = "branch") if the scope is said to global it checks anywhere after the branch as well 
 def data_value_alternative_eventually_follows(tree, condition, a, scope = "branch"):
     branch = condition_finder(tree, condition)
     if branch is not None:
