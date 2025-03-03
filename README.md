@@ -5,10 +5,12 @@ This readme contains instructins on how to use the developed tool (A) with exist
 
 The prompts used for generating ASTs out of Natural Language / Textual Process Descriptions, are in the ExtractionPrototype Directory.
 
+The dataset used for evaluation is in the CompositeDataset directory. The processes are given as xml files that already contain the requiremend ASTs so they can be loaded into the CPEE and verified as described in (B).
+
 The complete Documentation can be found in a [Google Doc](https://docs.google.com/document/d/1zmmlLmjx7WXjEr13STYjuhUX3BA8nUhPKcK7uclMJtI/edit?usp=sharing).
 In case this link breaks for any reason during the Review phase it is also in documentation.txt.
 
-For Reviewers it is only possible to use (C) and (D) since, (A) and (B) would reveal information about the authors
+For Reviewers it is only possible to verify processes using (C) and (D) since, (A) and (B) would reveal information about the authors
 ## (A) Testing with existing Processes
 
 Testing with existing processes reveals information that can be used to identify the authors so it is not possible for the Reviewer Version.
