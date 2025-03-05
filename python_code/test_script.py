@@ -38,20 +38,12 @@ args = parser.parse_args()
 ## File Loading
 xml = ET.parse(args.process)
 
-
-
-
-for child in xml.iter():
-    print(f"Tag: {child.tag}, Text: {child.text}")
 ## data preparation
 namespace1 = {"ns0": "http://cpee.org/ns/description/1.0"}
 namespace2 = {"ns1": "http://cpee.org/ns/properties/2.0"} 
 
-print(xml)
 req = xml.find('.//ns1:requirements', namespace2)
-print(req)
 xml = xml.find('.//ns0:description', namespace1)
-print(xml)
 requirements = parse_requirements(req.text)
 xml = add_start_end(xml)
 xml = combine_sub_trees(xml)
