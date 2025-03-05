@@ -48,7 +48,7 @@ Accordingly, add any requirements encoded as an AST you want into it like so:
 
 ![image](https://github.com/user-attachments/assets/f1901d4b-7f8c-4973-8905-df37c445a63c)
 
-For a complete overview of all verification methods you can check the source code in the python_code dictionary or the regularly updated Documentation at 
+For a complete overview of all verification methods you can check the source code in the python\_code dictionary or the regularly updated Documentation at 
 
 Now any change in the process will seend a message to the subscriber. The resulting compliance log can not be sent to reviewers without revealing author information. 
 
@@ -56,8 +56,8 @@ Now any change in the process will seend a message to the subscriber. The result
 Complete local deployment requires setting up a server / configuring a firewall. In order to simplify local testing for users that do not want to spend that time, but do want to test the PTV locally we prepared a simple script interface for the PTV. To use the testing script you first have to clone the repository and install dependencies. Intructions were tested on a fresh Fedora 43 installation, but should work on other distributions and Windows/Mac as well.
 
 1. Clone the Repository `git pull xxx`
-2. Navigate to the python_code dictionary `cd python_code`
-3. Install all dependencies `pip install -r requirements.txt`
+2. Navigate to the python\_code dictionary `cd python_code`
+3. (This was optional on Fedora): Install all dependencies `pip install -r requirements.txt`
 4. On Linux: Launch the testing script `python3 test_script.py ../RunningExample/Running_Example.xml`
 5. On Windows: Launch the testing script `python3 test_script.py ..\RunningExample\Running_Example.xml`
 
