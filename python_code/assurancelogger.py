@@ -89,8 +89,8 @@ logging.setLoggerClass(AssuranceLogger)
 # Set up default logging configuration
 logging.basicConfig(
     ## The following two lines set up the logger in the live version, for the github version tehy are commented out since they require extra setup to replicate on a local version
-    filename="/Output/Compliance/ComplianceLog.log", 
-    filemode='a',
+    #filename="/Output/Compliance/ComplianceLog.log", 
+    #filemode='a',
     level=logging.INFO,
     ## The following Format is recommended for debugging
     #format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
