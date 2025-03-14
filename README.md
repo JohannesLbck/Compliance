@@ -1,4 +1,14 @@
 # PTV - Process Tree Verifier
+
+QuickStart for Reviewers:
+
+1. Download Repository (button is top right)
+2. Unzip Repository `unzip Compliance-EF17.zip` (or however you usually unzip files)
+3. Navigate to code `cd python_code`
+4. Install Dependencies (Likely Optional): `pip install -r requirements.txt`
+5. Linux/Mac: `python3 test_script.py ../RunningExample/Running_Example.xml`
+6. Windows: `python3 test_script.py ..\RunningExample\Running_Example.xml`
+
 This is the Github of the Process Tree Verification tool developed for the *Removed for Review* Paper as part of the *removed for Review* Project. The Process Tree Verifier is a Subscribtion based Rest Service that can be used to verify regulatory requirements on processes represented as process trees in the [cpee](https://www.cpee.org)-tree format.
 
 This readme contains instructins on how to use the developed tool (A) with existing process to directly see the functionality, (B) with new processes / requirements to show how it affects the process of process modeling, (C) with a small testing script locally (D) with a locally deployed copy of the PTV for future development.
@@ -9,15 +19,6 @@ The dataset used for evaluation is in the CompositeDataset directory. The proces
 
 The complete Documentation can be found in a [Google Doc](https://docs.google.com/document/d/1zmmlLmjx7WXjEr13STYjuhUX3BA8nUhPKcK7uclMJtI/edit?usp=sharing).
 In case this link breaks for any reason during the Review phase it is also in documentation.txt.
-
-QuickStart for Reviewers:
-
-1. Download Repository (button is top right)
-2. Unzip Repository `unzip Compliance-EF17.zip` (or however you usually unzip files)
-3. Navigate to code `cd python_code`
-4. Install Dependencies (Likely Optional): `pip install -r requirements.txt`
-5. Linux/Mac: 'python3 test_script.py ../RunningExample/Running_Example.xml`
-6. Windows: `python3 test_script.py ..\RunningExample\Running_Example.xml`
 
 For Reviewers it is only possible to verify processes using (C) and (D) since, (A) and (B) would reveal information about the authors
 ## (A) Testing with existing Processes
