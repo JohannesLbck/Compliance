@@ -7,6 +7,7 @@ QuickStart for Reviewers:
 3. Navigate to code `cd python_code`
 4. Linux/Mac: `python3 test_script.py ../RunningExample/Running_Example.xml`
 5. Windows: `python3 test_script.py ..\RunningExample\Running_Example.xml`
+6. If any packages are missing (there should not be any) try `pip install -r requirements.txt`
 
 This is the Github of the Process Tree Verification tool developed for the *Removed for Review* Paper as part of the *removed for Review* Project. The Process Tree Verifier is a Subscribtion based Rest Service that can be used to verify regulatory requirements on processes represented as process trees in the [cpee](https://www.cpee.org)-tree format.
 
