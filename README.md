@@ -5,9 +5,8 @@ QuickStart for Reviewers:
 1. Download Repository (button is top right)
 2. Unzip Repository `unzip Compliance-EF17.zip` (or however you usually unzip files)
 3. Navigate to code `cd python_code`
-4. Install Dependencies (Likely Optional): `pip install -r requirements.txt`
-5. Linux/Mac: `python3 test_script.py ../RunningExample/Running_Example.xml`
-6. Windows: `python3 test_script.py ..\RunningExample\Running_Example.xml`
+4. Linux/Mac: `python3 test_script.py ../RunningExample/Running_Example.xml`
+5. Windows: `python3 test_script.py ..\RunningExample\Running_Example.xml`
 
 This is the Github of the Process Tree Verification tool developed for the *Removed for Review* Paper as part of the *removed for Review* Project. The Process Tree Verifier is a Subscribtion based Rest Service that can be used to verify regulatory requirements on processes represented as process trees in the [cpee](https://www.cpee.org)-tree format.
 
