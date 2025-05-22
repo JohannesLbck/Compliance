@@ -323,7 +323,7 @@ def by_due_date_explicit(tree, a, timestamp):
             if int(call[1]) <= int(timestamp):
                 condition = f"data.{call[2]}"
                 logger.info(f'found a due date activity that enforces the date requirement, check for alternative branch with condition: "{condition}" that eventually leads to "{a}"')
-                return data_value_alternative_eventually_follows(tree, condition, a)
+                return condition_eventually_follows(tree, condition, a)
         logger.info(f'no due date activity was found to enforce the due date requirement')
         return False
     else:
@@ -439,7 +439,7 @@ def activity_receives(tree, a, data):
         logger.info(f'Activity "{a}" does not exist in the tree, accordingly the receive is trivally true')
         return True
     
-def data_value_alternative(tree, condition):
+def condition(tree, condition):
     if condition_finder(tree, condition):
         return True
     else:
@@ -466,12 +466,12 @@ def condition_directly_follows(tree, condition , a):
             logger.info(f'Activity "{a}" directly followed the data_condition "{condition}"')
             return True
         counter += 1
-    logger.error(f"IF we got here something went wrong, in the data_value_alternative_directly_follows function")
+    logger.error(f"IF we got here something went wrong, in the condition_directly_follows function")
     return False
 
 
 ## Eventually follows a data condition. The default here is to check in the same branch (see scope = "branch") if the scope is said to global it checks anywhere after the branch as well 
-def data_value_alternative_eventually_follows(tree, condition, a, scope = "branch"):
+def condition_eventually_follows(tree, condition, a, scope = "branch"):
     branch = condition_finder(tree, condition)
     if branch is not None:
         apath = exists(branch,a)
@@ -507,7 +507,7 @@ def data_value_alternative_eventually_follows(tree, condition, a, scope = "branc
         logger.info(f'No branch with condition: "{condition}" was found')
         return False
 def data_leads_to_absence(tree, condition, a):
-    return not data_value_alternative_eventually_follows(tree, condition, a)
+    return not condition_eventually_follows(tree, condition, a)
 
 ## Obligations vs Permissions: These can be modeled on the requirements side, using ands, ors and by just included the rule or not
 ## Complex resource requirements: These can also be modeled on the requirements side usind ands, ors and by just including rule or not
