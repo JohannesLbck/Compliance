@@ -81,7 +81,7 @@ compliancessub.py also contains a little script (def run_server():) to ensure th
 Technially you can also set up a local deployment of the CPEE as well, but this can be somewhat challenging. For instructions on a locally deployed CPEE we refer to the official documentation at [cpee.org].
 
 ## Licensing and Citation
-This project is licensed under a MIT license so you are allowed to reuse the code of this project under its copy left specifications. In addition if you use this project for any publication you can cite the associated paper as follows:
+This project is licensed under a GNU GENERAL PUBLIC LICENSE license so you are allowed to reuse the code of this project under its copy left specifications. In addition if you use this project for any publication you can cite the associated paper as follows:
 
    
 
