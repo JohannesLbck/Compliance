@@ -62,12 +62,15 @@ async def main():
     """
     return HTMLResponse(content=content)
 
+@app.get("/test")
+async def test():
+    return {"msg": "ok"}
 @app.post("/Subscriber")
 async def Subscriber(request: Request):
     async with request.form() as form:
         ## Reset Log, This should in practice always be commented in, it is currently commented out for testers since it requires file permissions and uses unix directory structure 
-        with open('/Output/Compliance/ComplianceLog.log', 'w'):
-            pass
+        #with open('/Output/Compliance/ComplianceLog.log', 'w'):
+        #    pass
         notification = json.loads(form["notification"])
         hash_t.insert(notification["instance-uuid"], notification)
         try:
