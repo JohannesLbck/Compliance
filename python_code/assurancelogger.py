@@ -22,6 +22,7 @@ class AssuranceLogger(logging.Logger):
     is a bit more useful. Shared states are achieved using class-level attributes.
     """
     # Class-level shared state
+    LogName = ""
     assurance_level = 100  # Shared assurance level
     activities = set()  # Shared activities set
     missing_activities = set()  # Shared missing activities set
@@ -37,6 +38,14 @@ class AssuranceLogger(logging.Logger):
         type(self).assurance_level -= 10  # Decrease assurance level
         type(self).assurance_level = max(0, type(self).assurance_level)  # Ensure it doesn't go below 0
         super().warning(msg, *args, **kwargs)  # Call the original `warning` method
+
+    @classmethod
+    def get_LogName(cls):
+        return cls.LogName
+    
+    @classmethod
+    def set_LogName(cls, name):
+        cls.LogName = name
 
     @classmethod
     def get_assurance_level(cls):
@@ -86,17 +95,3 @@ class AssuranceLogger(logging.Logger):
 # Set AssuranceLogger as the default logger class globally
 logging.setLoggerClass(AssuranceLogger)
 
-# Set up default logging configuration
-logging.basicConfig(
-    ## The following two lines set up the logger in the live version, for the github version tehy are commented out since they require extra setup to replicate on a local version
-    #filename="/Output/Compliance/ComplianceLog.log", 
-    #filemode='a',
-    level=logging.INFO,
-    ## The following Format is recommended for debugging
-    #format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    format='%(message)s',
-    ## Similar as above, the lower 3 lines are commented out in the live version, but lead to local logging in the terminal for the git version
-    handlers=[
-        logging.StreamHandler(),
-    ]
-)

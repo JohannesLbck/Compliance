@@ -69,10 +69,26 @@ async def test():
 async def Subscriber(request: Request):
     async with request.form() as form:
         ## Reset Log, This should in practice always be commented in, it is currently commented out for testers since it requires file permissions and uses unix directory structure 
-        #with open('/Output/Compliance/ComplianceLog.log', 'w'):
-        #    pass
         notification = json.loads(form["notification"])
+        logfilename = f"/var/www/PTVLogs/{notification['instance-name']}-{notification['instance']}.log"
+        with open(logfilename, 'w'):
+            pass
         hash_t.insert(notification["instance-uuid"], notification)
+        # Set up default logging configuration
+        logging.basicConfig(
+            ## The commented in version is for storing log files in /var/www/, for local logging change these to the handler below
+            filename=logfilename,
+            filemode='a',
+            level=logging.INFO,
+            ## The following Format is recommended for debugging
+            #format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            format='%(message)s',
+            ## Handler for local logging below
+            #handlers=[
+            #    logging.StreamHandler(),
+            #]
+        )
+
         try:
             req = notification["content"]["attributes"]["requirements"]
         except:
