@@ -47,8 +47,8 @@ For a complete overview of all verification methods, you can check the source co
 ## (C) Local Testing Scripts
 Complete local deployment requires setting up a server / configuring a firewall. In order to simplify local testing for users who do not want to spend that time but do want to test the PTV locally, we prepared a simple script interface for the PTV. To use the testing script, you first have to clone the repository and install dependencies. Instructions were tested on a fresh Fedora 43 installation but should work on other distributions and Windows/Mac as well.
 
-1. Clone the Repository `git pull xxx`
-2. Navigate to the python\_code dictionary `cd python_code`
+1. Clone the Repository `git clone https://github.com/JohannesLbck/ProcessTreeVerify.git`
+2. Navigate to the python\_code dictionary `cd python_code`. Optionally set up a virtual enviroment (This tool has barely any dependencies)
 3. (This was optional on Fedora): Install all dependencies `pip install -r requirements.txt`
 4. On Linux: Launch the testing script `python3 test_script.py ../RunningExample/Running_Example.xml`
 5. On Windows: Launch the testing script `python3 test_script.py ..\RunningExample\Running_Example.xml`
@@ -58,12 +58,12 @@ The above example tests the running example process also used throughout the pap
 
 ## (D) Custom Deployment
 Finally, you can also deploy the PTV locally, which we recommend in case you want to add additional functionality or simply run different tests.
-The CPEE side would be handled the same as before, with the only change being that the URL needs to point toward your own endpoint. We recommend using a server such as nginx to forward the port (default is port 9321, which can be changed in python/_code/compliancesub.py) towards a URL. These instructions were tested on a fresh Fedora 43 Installation but should work on different systems as well. Depending on your distribution or Windows/Mac, you might have to install additional packages such as python3 and pip (any current version should do; all required packages are standard libraries).
+The CPEE side would be handled the same as before, with the only change being that the URL needs to point toward your own endpoint. We recommend using a server such as nginx to forward the port (default is port 9321, which can be changed in python\_code/compliancesub.py) towards a URL. These instructions were tested on a fresh Fedora 43 Installation but should work on different systems as well. Depending on your distribution or Windows/Mac, you might have to install additional packages such as python3 and pip (any current version should do; all required packages are standard libraries).
 
 To actually launch the project follow these steps:
 
-1. Clone the Repository `git pull xxx`
-2. Navigate to the python\_version dictionary `cd python_version`
+1. Clone the Repository `git clone https://github.com/JohannesLbck/ProcessTreeVerify.git`
+2. Navigate to the python\_version dictionary `cd python_version`. Optionally set up a virtual enviroment.
 3. Install all dependencies `pip install -r requirements.txt`
 4. Launch the Application using `python3 compliancesub.py` (launches as a daemon, short explanation below)
 5. Either use the endpoint at local host (127.0.0.1:9321) or set up port forwarding by setting up your firewall and webserver (we recommend using nginx and also setting up let's encrypt)
