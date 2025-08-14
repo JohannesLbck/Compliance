@@ -2,7 +2,7 @@
 
 This is the Github of the Process Tree Verification tool developed for *Tree-based Compliance Verification: Bridging the Gap between Compliance Requirements and Process Execution* as part of the *TRPro project* Project funded by the DFG under the project number 514769482. The Process Tree Verifier is a Subscribtion based Rest Service that can be used to verify regulatory requirements on processes represented as process trees in the [cpee](https://www.cpee.org)-tree format.
 
-This readme contains instructions on how to use the developed tool (A) with an existing process to see the functionality directly, (B) with new processes/requirements to show how it affects process modeling, (C) with a small testing script locally, and (D) with a locally deployed copy of the PTV for future development.
+This readme contains instructions on how to use the developed tool as well as the processes used during the evaluation and all artifacts of the user study with additional documentation in the respective subfolders. The tool can be tested (A) with an existing process to see the functionality directly, (B) with new processes/requirements to show how it affects process modeling, (C) with a small testing script locally, and (D) with a locally deployed copy of the PTV for future development.
 
 The prompts used for generating ASTs out of Natural Language / Textual Process Descriptions are in the ExtractionPrototype Directory.
 
@@ -18,19 +18,13 @@ The complete Documentation of the PTV can be found in a [Google Doc](https://doc
 
 ## (B) Adding the subscription to a new Process
 
-We also cannot link the web app where you can directly experiment with this.
-
-Compliance Log cannot be returned without revealing information that can be used to identify the authors so it is not possible for the Reviewer Version.
-The following steps only show how you can setup a process to connect a subscriber to highlight that it is very easy to connect new processes with the subscriber, but the actual verification can again not be shown
-
 If you want to try out the verification yourself, you can also create a new model on the CPEE and connect it to the compliance subscriber. For this, follow the following steps:
 
-Use the CPEE functionality "save test set" to download the XML test set.
+1. Navigate to the following [cpee directory](https://cpee.org/hub/?stage=development&dir=Staff.dir/Loebbi.dir/Compliance.dir/PTVPlayground.dir/) and create a New Model
+2. Use the CPEE functionality "save testset" to download the XML test set.
+3. Add the Compliance Subscriber to the test by copy-pasting the following at the end of the XML. (You can also check the xml files of the composite dataset for examples with the subscriber added ) and we will add a button for this in the future
 
-![Save Testset](DemoImages/2.png)
-
-Add the Compliance Subscriber to the test by copy-pasting the following into the XML. (You can also check the xml files of the composite dataset for examples with the subscriber added.
-
+```
 <subscriptions>
 <subscription id="_compliance" url="https://>double blind</compliance/Subscriber">
 <topic id="description">
@@ -38,13 +32,10 @@ Add the Compliance Subscriber to the test by copy-pasting the following into the
 </topic>
 </subscription>
 </subscriptions>
+```
 
-
-Now, use the "load testset" button (seen above) to load the edited XML into the process. Save the model for safety.
-To actually verify anything you have to still add compliance requirements. 
-The compliance requirements are sent to the subscriber via the Attributes fields.
-Accordingly, add any requirements encoded as an AST you want into it like so:
-
+4. Now, use the "load testset" button to load the edited XML into the process. Save the model for safety.
+5. To actually verify anything you have to still add compliance requirements. The compliance requirements are sent to the subscriber via the Attributes fields. Accordingly, add any requirements encoded as an AST you want into it like so:
 
 ![Add Requirements](DemoImages/3.png)
 
@@ -66,7 +57,7 @@ The above example tests the running example process also used throughout the pap
 
 ## (D) Custom Deployment
 Finally, you can also deploy the PTV locally, which we recommend in case you want to add additional functionality or simply run different tests.
-The CPEE side would be handled the same as before, with the only change being that the URL needs to point toward your own endpoint. We recommend using a server such as nginx to forward the port (default is port 9321, which can be changed in python_code/compliancesub.py) towards a URL. These instructions were tested on a fresh Fedora 43 Installation but should work on different systems as well. Depending on your distribution or Windows/Mac, you might have to install additional packages such as python3 and pip (any current version should do; all required packages are standard libraries).
+The CPEE side would be handled the same as before, with the only change being that the URL needs to point toward your own endpoint. We recommend using a server such as nginx to forward the port (default is port 9321, which can be changed in python/_code/compliancesub.py) towards a URL. These instructions were tested on a fresh Fedora 43 Installation but should work on different systems as well. Depending on your distribution or Windows/Mac, you might have to install additional packages such as python3 and pip (any current version should do; all required packages are standard libraries).
 
 To actually launch the project follow these steps:
 
@@ -77,7 +68,7 @@ To actually launch the project follow these steps:
 5. Either use the endpoint at local host (127.0.0.1:9321) or set up port forwarding by setting up your firewall and webserver (we recommend using nginx and also setting up let's encrypt)
 6. End the Daemon after using by executing `python3 compliancesub.py` again
 
-compliancessub.py also contains a little script (def run_server():) to ensure that the subscriber is started as a daemon. We are unsure how this will work on Windows/Mac so if you encounter any issues on these systems you can remove that codepiece and use the "normal" way to run fastapi rest services using `uvicorn.run compliancesub:app port=9321`. If you still encounter any issues on these systems you can contact us or just try out the example scripts presented in Section (C).
+compliancessub.py also contains a little script (def run\_server():) to ensure that the subscriber is started as a daemon. We are unsure how this will work on Windows/Mac so if you encounter any issues on these systems you can remove that codepiece and use the "normal" way to run fastapi rest services using `uvicorn.run compliancesub:app port=9321`. If you still encounter any issues on these systems you can contact us or just try out the example scripts presented in Section (C).
 Technially you can also set up a local deployment of the CPEE as well, but this can be somewhat challenging. For instructions on a locally deployed CPEE we refer to the official documentation at [cpee.org].
 
 ## Licensing and Citation
