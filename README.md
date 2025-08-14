@@ -39,9 +39,10 @@ If you want to try out the verification yourself, you can also create a new mode
 
 ![Add Requirements](DemoImages/3.png)
 
-For a complete overview of all verification methods, you can check the source code in the python\_code dictionary or the regularly updated Documentation. 
+6. Now any change to the process model will send a message to the subscriber, so you can again check the compliance log as described in (A)
 
-Now, any change in the process will send a message to the subscriber. The resulting compliance log can not be sent to reviewers without revealing author information. 
+For a complete overview of all verification methods, you can check the source code in the python\_code dictionary or the Documentation linked above. 
+
 
 ## (C) Local Testing Scripts
 Complete local deployment requires setting up a server / configuring a firewall. In order to simplify local testing for users who do not want to spend that time but do want to test the PTV locally, we prepared a simple script interface for the PTV. To use the testing script, you first have to clone the repository and install dependencies. Instructions were tested on a fresh Fedora 43 installation but should work on other distributions and Windows/Mac as well.
