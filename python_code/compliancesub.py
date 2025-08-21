@@ -20,6 +20,7 @@ import signal
 import sys
 import json
 import re
+import uuid
 import logging
 import assurancelogger 
 import xml.etree.ElementTree as ET
@@ -35,8 +36,6 @@ from verificationAST import verify
 
 hash_t = HashTable(20)
 hash_t.load_disk("TrackedUIDsHashmap.json")
-
-logger = logging.getLogger("Top Level")
 
 class Model(BaseModel):
     cpee: str
@@ -71,24 +70,33 @@ async def Subscriber(request: Request):
         ## Reset Log, This should in practice always be commented in, it is currently commented out for testers since it requires file permissions and uses unix directory structure 
         notification = json.loads(form["notification"])
         logfilename = f"/var/www/PTVLogs/{notification['instance-name']}-{notification['instance']}.log"
+        print(logfilename)
         with open(logfilename, 'w'):
             pass
         hash_t.insert(notification["instance-uuid"], notification)
-        # Set up default logging configuration
-        logging.basicConfig(
+        logger = logging.getLogger(f"request_logger_{uuid.uuid4().hex}")
+        logger.setLevel(logging.INFO)
+
+        # Start Logging 
+        file_handler = logging.FileHandler(logfilename)
+        file_handler.setFormatter(logging.Formatter('%(message)s'))
+        logger.addHandler(file_handler)
+        logger.propagate = False
+        # Below is an example default logging configuration for other logging options
+        #logging.basicConfig(
             ## The commented in version is for storing log files in /var/www/, for local logging change these to the handler below
-            filename=logfilename,
-            filemode='a',
-            level=logging.INFO,
+        #    filename=logfilename,
+        #    filemode='a',
+        #    level=logging.INFO,
             ## The following Format is recommended for debugging
             #format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            format='%(message)s',
+        #    format='%(message)s',
             ## Handler for local logging below
             #handlers=[
             #    logging.StreamHandler(),
             #]
-        )
-
+        #)
+        #logger.filename = logfilename
         try:
             req = notification["content"]["attributes"]["requirements"]
         except:
@@ -100,7 +108,7 @@ async def Subscriber(request: Request):
                 hash_t.save_disk("TrackedUIDsHashmap.json")
         except:
             logger.info("No save attribute was passed, previous version will only be stored in memory and not written to disk")
-            logger.info("If a save attribute was passed, and this message still shows, there is a internal server error")
+            #logger.info("If a save attribute was passed, and this message still shows, there is a internal server error")
         requirements = parse_requirements(req)
         xml = ET.fromstring(notification["content"]["description"])
         xml = add_start_end(xml)
