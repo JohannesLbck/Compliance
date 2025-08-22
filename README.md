@@ -25,13 +25,13 @@ If you want to try out the verification yourself, you can also create a new mode
 3. Add the Compliance Subscriber to the test by copy-pasting the following at the end of the XML. (You can also check the xml files of the composite dataset for examples with the subscriber added ) and we will add a button for this in the future
 
 ```
-<subscriptions>
-<subscription id="_compliance" url="https://>double blind</compliance/Subscriber">
-<topic id="description">
-<event>change</event>
-</topic>
-</subscription>
-</subscriptions>
+  <subscriptions xmlns="http://riddl.org/ns/common-patterns/notifications-producer/2.0">
+    <subscription xmlns="http://riddl.org/ns/common-patterns/notifications-producer/2.0" id="_compliance" url="https://power.bpm.cit.tum.de/compliance/Subscriber">
+      <topic id="description">
+        <event>change</event>
+      </topic>
+    </subscription>
+  </subscriptions>
 ```
 
 4. Now, use the "load testset" button to load the edited XML into the process. Save the model for safety.
